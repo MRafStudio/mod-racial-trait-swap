@@ -308,7 +308,18 @@ public:
     {
         if (sConfigMgr->GetOption<bool>("Azerothcore.Racial.Trait.Swap.Announce.enable", true))
         {
-            ChatHandler(Player->GetSession()).SendSysMessage("This server is running the |cff4CFF00Azerothcore Racial Trait Swap NPC |rmodule.");
+            WorldSession* session = Player->GetSession();
+            switch (session->GetSessionDbLocaleIndex())
+            {
+            case LOCALE_ruRU:
+            {
+                ChatHandler(Player->GetSession()).SendSysMessage("На сервере запущен модуль |cff4CFF00Azerothcore Racial Trait Swap NPC |r");
+                break;
+            }
+            default:
+                ChatHandler(Player->GetSession()).SendSysMessage("This server is running the |cff4CFF00Azerothcore Racial Trait Swap NPC |rmodule.");
+                break;
+            }
         }
     }
 };
